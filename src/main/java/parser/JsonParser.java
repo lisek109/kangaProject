@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import model.Item;
 import model.PairItem;
 import model.SpreadItem;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
 
 public class JsonParser {
 
-    public static List<String> marketPairParser(String jsonString) {
+    public static List<URI> marketPairParser(String jsonString) {
+        String url = "https://public.kanga.exchange/api/market/orderbook/";
         PairItem[] data = new Gson().fromJson(jsonString, PairItem[].class);// Not sure if this solution is the best one since I could also use Jackson here...
-        List<String> marketPairs = Arrays.stream(data)
+        List<URI> marketPairs = Arrays.stream(data)
                 .map(PairItem::getTicker_id)
+                .map(a -> url + a)
+                .map(URI::create)
                 .collect(Collectors.toList());
         return marketPairs;
     }

@@ -1,8 +1,9 @@
 package provider;
 
+import java.net.URI;
 import java.util.List;
 
 public interface MarketPairsProvider {
-    List<String> getmarketPairsData();
+    List<URI> getmarketPairsData();
 
 }
