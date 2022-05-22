@@ -15,12 +15,4 @@ public class PairItem {
     public String getTicker_id() {
         return ticker_id;
     }
-
-    public String getBase() {
-        return base;
-    }
-
-    public String getTarget() {
-        return target;
-    }
 }
