@@ -2,7 +2,7 @@ package provider;
 
 import java.util.List;
 
-public interface marketPairsProvider {
+public interface MarketPairsProvider {
     List<String> getmarketPairsData();
 
 }

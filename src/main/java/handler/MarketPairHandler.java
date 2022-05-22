@@ -1,7 +1,7 @@
 package handler;
 
 import parser.JsonParser;
-import provider.marketPairsProvider;
+import provider.MarketPairsProvider;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionException;
 
-public class MarketPairHandler implements marketPairsProvider {
+public class MarketPairHandler implements MarketPairsProvider {
 
     public List<String> getmarketPairsData() {
         HttpClient client = HttpClient.newHttpClient();

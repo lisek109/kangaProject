@@ -3,7 +3,7 @@ package handler;
 import model.SpreadItem;
 import parser.JsonParser;
 import provider.DataProvider;
-import provider.marketPairsProvider;
+import provider.MarketPairsProvider;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -15,7 +15,7 @@ public class DataHandler implements DataProvider {
 
     public ArrayList<SpreadItem> getSpreadData() {
         ArrayList<SpreadItem> spreadItems = new ArrayList<>();
-        marketPairsProvider marketPairsProvider = new MarketPairHandler(); // here can I handle exception
+        MarketPairsProvider marketPairsProvider = new MarketPairHandler(); // here can I handle exception
         for (String marketPair : marketPairsProvider.getmarketPairsData()) {
             System.out.println("Values for pair: " + marketPair);
             HttpClient client = HttpClient.newHttpClient();
