@@ -16,7 +16,6 @@ public class MarketPairHandler implements MarketPairsProvider {
     public List<URI> getmarketPairsData() {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://public.kanga.exchange/api/market/pairs")).timeout(Duration.ofSeconds(20)).build();
-        // HttpClient handle timeout error
         try {
             List<URI> list = client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(stringHttpResponse -> stringHttpResponse.body())

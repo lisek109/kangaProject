@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import model.Item;
 import model.PairItem;
 import model.SpreadItem;
+
 import java.net.URI;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -26,20 +28,24 @@ public class JsonParser {
 
     public static SpreadItem spreadParser(String jsonString) {
         Item data = new Gson().fromJson(jsonString, Item.class);
-        System.out.println(data.getTicker_id());
+        //System.out.println(data.getTicker_id());
 
         if (data.getBids().size() == 0 || data.getAsks().size() == 0) {
-            return new SpreadItem(data.getTicker_id(), null);
+            return new SpreadItem(data.getTicker_id(), -1.0);
         }
 
-        Float bestBid = data.getBids().stream()
-                .map(a -> Float.parseFloat(a.get(0)))
-                        .max(Comparator.comparing(x -> x)).get();
+        Double bestBid = data.getBids().stream()
+                .map(a -> Double.parseDouble(a.get(0)))
+                .max(Comparator.comparing(x -> x)).get();
 
-        Float bestAsk = data.getAsks().stream()
-                .map(a -> Float.parseFloat(a.get(0)))
+        Double bestAsk = data.getAsks().stream()
+                .map(a -> Double.parseDouble(a.get(0)))
                 .min(Comparator.comparing(x -> x)).get();
 
-        return new SpreadItem(data.getTicker_id(), ((bestAsk - bestBid) / ((0.5 * (bestBid + bestAsk)) * 100 )));
+        Double result = ((bestAsk - bestBid) / ((0.5F * (bestBid + bestAsk))) * 100);
+        DecimalFormat df = new DecimalFormat("#.00");
+        Double formatedResult = Double.valueOf(df.format(result));
+
+        return new SpreadItem(data.getTicker_id(), formatedResult);
     }
 }
