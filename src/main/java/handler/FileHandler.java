@@ -2,6 +2,7 @@ package handler;
 
 import model.SpreadItem;
 import parser.TimestampParser;
+import provider.TimeProvider;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,9 +15,9 @@ import java.util.stream.Collectors;
 public class FileHandler implements Serializable {
 
     public void getSpreadFile(List<SpreadItem> spreadList) throws IOException {
-        String header1 = "Powyzej 2% \nMarket spread\n";
-        String header2 = "Ponizej 2% \nMarket spread\n";
-        String header3 = "Null \nMarket spread\n";
+        String header1 = "Above 2% market spread\n";
+        String header2 = "Below 2% market spread\n";
+        String header3 = "Null market spread\n";
 
         List<String> listOfEmptyPairs = spreadList.stream()
                 .filter(a -> a.getSpread() == -1.0)
@@ -47,11 +48,11 @@ public class FileHandler implements Serializable {
 
         FileOutputStream fos = null;
         File file;
-        String mycontent = header1 + "\n\n" +header2 + "\n\n" +header3;
+        String mycontent = header3 + "\n\n" +header2 + "\n\n" +header1;
 
         try {
-            TimestampParser parser = new TimestampParser();
-            file = new File(Paths.get("").toAbsolutePath() + "\\report_spread_"+parser.parseTimestamp()+".txt");
+            TimeProvider parser = new TimestampParser();
+            file = new File(Paths.get("").toAbsolutePath() + "\\report_spread_" + parser.parseTimestamp() + ".txt");
             fos = new FileOutputStream(file);
 
             if (!file.exists()) {
@@ -77,19 +78,4 @@ public class FileHandler implements Serializable {
             }
         }
     }
-
-
-  //  public void getSpreadFile(ArrayList<SpreadItem> spreadList) {
-  //      // Split list into 3 lists - =< 2%, > 2%, null
-  //      // List<String> stringValues = spreadList.stream()
-  //      //        .map(a -> a.ticker_id+"   "+a.spread.toString()+"%")
-  //      //        .collect(Collectors.toList());
-  //      // Create file stream writer
-  //      // add 2 first headers
-//
-  //  }
-
-    //fix file error - file name?
-    //fix spread -1 in parser and stream method
-    //add sort()
 }

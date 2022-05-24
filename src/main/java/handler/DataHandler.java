@@ -11,7 +11,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletionException;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class DataHandler implements DataProvider {
         MarketPairsProvider marketPairsProvider = new MarketPairHandler();
         List<URI> marketUrls = marketPairsProvider.getmarketPairsData();
         try {
-            System.out.println("*********STARTING NEW LOOP**********");
+            System.out.println("*********STARTING NEW REPORT**********"); // just to know when next report strats to generate
             HttpClient client = HttpClient.newHttpClient();
             List<SpreadItem> items = marketUrls.stream()
                     .map(marketUrl -> client
@@ -33,11 +32,8 @@ public class DataHandler implements DataProvider {
                             .thenApply(JsonParser::spreadParser).join())
                     .collect(Collectors.toList());
             System.out.println("--------LIST SIZE-------" + items.size());
-      //      items.stream()
-      //              .filter(a -> a.getSpread() > 2F)
-      //              .sorted(Comparator.comparing(SpreadItem::getTicker_id))
-      //              .forEach(System.out::println);
             return items;
+
         } catch (CompletionException c) {
             System.out.println("Can not load page " + c.getMessage());
             return new ArrayList<>();

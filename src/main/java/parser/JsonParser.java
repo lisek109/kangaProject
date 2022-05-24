@@ -28,10 +28,10 @@ public class JsonParser {
 
     public static SpreadItem spreadParser(String jsonString) {
         Item data = new Gson().fromJson(jsonString, Item.class);
-        //System.out.println(data.getTicker_id());
 
         if (data.getBids().size() == 0 || data.getAsks().size() == 0) {
             return new SpreadItem(data.getTicker_id(), -1.0);
+            // Returning -1.0. I could not handle null in getSpreadFile method (stream)
         }
 
         Double bestBid = data.getBids().stream()
