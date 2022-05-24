@@ -21,7 +21,7 @@ public class DataHandler implements DataProvider {
         MarketPairsProvider marketPairsProvider = new MarketPairHandler();
         List<URI> marketUrls = marketPairsProvider.getmarketPairsData();
         try {
-            System.out.println("*********STARTING NEW REPORT**********"); // just to know when next report strats to generate
+            System.out.println("*********STARTING NEW REPORT**********"); // just to know when next report starts to generate
             HttpClient client = HttpClient.newHttpClient();
             List<SpreadItem> items = marketUrls.stream()
                     .map(marketUrl -> client
