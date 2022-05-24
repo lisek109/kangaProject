@@ -1,5 +1,7 @@
+import file.AbstractFileSaver;
 import handler.DataHandler;
 import handler.FileHandler;
+import handler.FileSaverImpl;
 import model.SpreadItem;
 
 import java.io.IOException;
@@ -13,16 +15,20 @@ public class Main {
     public static void main(String[] args) {
         DataHandler dataHandler = new DataHandler();
 
+        AbstractFileSaver fileSaver = new FileSaverImpl();
+
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                List<SpreadItem> spreadList = dataHandler.getSpreadData();
-                FileHandler fileHandler = new FileHandler();
-                try {
-                    fileHandler.getSpreadFile(spreadList);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                fileSaver.saveFile();
+          //      List<SpreadItem> spreadList = dataHandler.getSpreadData();
+          //      FileHandler fileHandler = new FileHandler();
+          //      try {
+          //          fileHandler.getSpreadFile(spreadList);
+          //      } catch (IOException e) {
+          //          e.printStackTrace();
+          //      }
             }
         };
         ScheduledExecutorService service = Executors

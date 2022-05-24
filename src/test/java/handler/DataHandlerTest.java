@@ -25,6 +25,6 @@ class DataHandlerTest {
     private MarketPairHandler marketPairHandler;
 
 
-   // @InjectMocks()
-
+    @InjectMocks()
+    private DataHandler dataHandler;
 }
