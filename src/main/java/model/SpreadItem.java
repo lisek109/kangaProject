@@ -4,6 +4,10 @@ import java.util.Objects;
 
 public class SpreadItem {
 
+    public SpreadItem() {
+
+    }
+
     public SpreadItem(String ticker_id, Double spread) {
         this.ticker_id = ticker_id;
         this.spread = spread;

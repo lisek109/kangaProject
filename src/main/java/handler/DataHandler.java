@@ -1,6 +1,8 @@
 package handler;
 
 import model.SpreadItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import parser.JsonParser;
 import provider.DataProvider;
 import provider.MarketPairsProvider;
@@ -17,11 +19,13 @@ import java.util.stream.Collectors;
 
 public class DataHandler implements DataProvider {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataHandler.class);
+
     public List<SpreadItem> getSpreadData() {
         MarketPairsProvider marketPairsProvider = new MarketPairHandler();
         List<URI> marketUrls = marketPairsProvider.getmarketPairsData();
         try {
-            System.out.println("*********STARTING NEW REPORT**********"); // just to know when next report starts to generate
+            LOGGER.info("*********STARTING NEW REPORT**********"); // just to know when next report starts to generate
             HttpClient client = HttpClient.newHttpClient();
             List<SpreadItem> items = marketUrls.stream()
                     .map(marketUrl -> client
@@ -31,11 +35,11 @@ public class DataHandler implements DataProvider {
                             .thenApply(stringHttpResponse -> stringHttpResponse.body())
                             .thenApply(JsonParser::spreadParser).join())
                     .collect(Collectors.toList());
-            System.out.println("--------LIST SIZE-------" + items.size());
+            LOGGER.info("--------LIST SIZE-------" + items.size());
             return items;
 
         } catch (CompletionException c) {
-            System.out.println("Can not load page " + c.getMessage());
+            LOGGER.error("Can not load page " + c.getMessage());
             return new ArrayList<>();
         }
     }

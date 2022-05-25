@@ -1,30 +1,34 @@
 package handler;
 
 import model.SpreadItem;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import parser.JsonParser;
+import org.junit.jupiter.api.Test;
 
-import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-@ExtendWith(MockitoExtension.class)
+
 class DataHandlerTest {
 
-    private static final SpreadItem SPREAD_ITEM1 = new SpreadItem("Ticker1", 1.0);
-    private static final SpreadItem SPREAD_ITEM2 = new SpreadItem("Ticker2", 3.0);
-    private static final SpreadItem SPREAD_ITEM3 = new SpreadItem("Ticker3", -1.0);
+    private static final DataHandler DATA_HANDLER = new DataHandler();
 
-    @Mock
-    private JsonParser jsonParser;
+    @Test
+    void shouldReturnEmptyArrayIfTimeoutExceptionAreCatched() { //Changing method timeout to mills. line 29 in DataHandler
+        //given
+        ArrayList<SpreadItem> excpectedResult = new ArrayList<>();
+        //when
+        List<SpreadItem> result = DATA_HANDLER.getSpreadData();
+        //then
+        assertArrayEquals(excpectedResult.toArray(), result.toArray());
+    }
 
-    @Mock
-    private MarketPairHandler marketPairHandler;
+    @Test
+    void shouldReturnListOfSpreadItemWhenCOnnectedToServer() {
+        //when
+        List<SpreadItem> result = DATA_HANDLER.getSpreadData();
+        //then
+        assert result.size() != 0;
+    }
 
-
-    @InjectMocks()
-    private DataHandler dataHandler;
 }

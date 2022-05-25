@@ -7,6 +7,7 @@ import model.SpreadItem;
 
 import java.net.URI;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -16,6 +17,9 @@ public class JsonParser {
 
     public static List<URI> marketPairParser(String jsonString) {
         String url = "https://public.kanga.exchange/api/market/orderbook/";
+        if (jsonString == null) {
+            return new ArrayList<>();
+        }
         PairItem[] data = new Gson().fromJson(jsonString, PairItem[].class);// Not sure if this solution is the best one since I could also use Jackson here...
         List<URI> marketPairs = Arrays.stream(data)
                 .map(PairItem::getTicker_id)
@@ -27,6 +31,7 @@ public class JsonParser {
 
 
     public static SpreadItem spreadParser(String jsonString) {
+
         Item data = new Gson().fromJson(jsonString, Item.class);
 
         if (data.getBids().size() == 0 || data.getAsks().size() == 0) {
