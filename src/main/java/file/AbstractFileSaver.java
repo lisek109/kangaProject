@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Paths;
 
-public abstract class AbstractFileSaver implements Serializable {
+public abstract class AbstractFileSaver  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractFileSaver.class);
 
