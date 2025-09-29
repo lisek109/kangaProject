@@ -4,5 +4,4 @@ The program calculates the value of the spread on cryptocurrency pairs in the ex
 
 You can start program in Main.class
 
-Not sure about some of solutions e.g abstract classes and tests. 
-Hope to get feedback about my project
+
