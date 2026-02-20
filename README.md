@@ -12,6 +12,7 @@ The application serves as a real-time monitoring solution that categorizes marke
 • Reliable Logic: Robust calculation engine for financial data processing.
 ## 🏗 Workflow Architecture
 The following diagram illustrates the automated execution cycle of the application:
+```mermaid
 graph TD
     A[Start Application] --> B{Timer: Every 1 Minute}
     B --> C[Fetch Crypto Pair Data]
@@ -24,6 +25,7 @@ graph TD
     G --> I
     H --> I
     I --> B
+```
 ## 🛠 Tech Stack
 • Core: Java (100% of the codebase).
 • Build Tool: Maven for dependency management and lifecycle control.
@@ -37,8 +39,10 @@ Getting Started
 2. Build the project:
 3. Run the application: The entry point of the program is located in the Main class. You can run it via your IDE or using the command line:
 ## 📂 Project Structure
+```text
 kangaProject/
 ├── src/               # Application source code [3]
 ├── .idea/             # Project-specific settings [3]
 ├── pom.xml            # Maven configuration and dependencies [3]
 └── README.md          # Project documentation
+```
